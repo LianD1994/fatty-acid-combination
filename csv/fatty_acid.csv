@@ -1,0 +1,36 @@
+Compound,Formula,Neutral Mass,Common Name,IUPAC Name,Description
+1,C4H8O2,88.052429,Butyric acid,butanoic acid,C4:0
+2,C6H12O2,116.08373,Caproic acid,hexanoic acid,C6:0
+3,C8H16O2,144.11503,Caprylic acid,octanoic acid,C8:0
+4,C10H20O2,172.14633,Capric acid,decanoic acid,C10:0
+5,C11H22O2,186.16198,Undecylic acid,undecanoic acid,C11:0
+6,C12H24O2,200.17763,Lauric acid,dodecanoic acid,C12:0
+7,C13H26O2,214.19328,Tridecylic acid,tridecanoic acid,C13:0
+8,C14H26O2,226.19328,Physeteric acid,(Z)-tetradec-5-enoic acid,C14:1
+9,C14H28O2,228.20893,MyrisIc acid,tetradecanoic acid,C14:0
+10,C15H28O2,240.20893,Methyl myristoleate,methyl (Z)-tetradec-9-enoate,C15:1
+11,C15H30O2,242.22458,Pentadecylic acid,pentadecanoic acid,C15:0
+12,C16H30O2,254.22458,Palmitoleic acid,(Z)-hexadec-9-enoic acid,C16:1
+13,C16H32O2,256.24023,Palmic acid,hexadecanoic acid,C16:0
+14,C17H32O2,268.24023,10-Heptadecenoic acid,(E)-heptadec-10-enoic acid,C17:1 (Δ10)
+15,C17H34O2,270.25588,Margaric acid,heptadecanoic acid,C17:0
+16,C18H30O2,278.22458,Gamma Linolenic Acid,"(6Z,9Z,12Z)-octadeca-6,9,12-trienoic acid","C18:3 (Δ6,9,12)"
+17,C18H30O2,278.22458,Linolenic Acid,"(9Z,12Z,15Z)-octadeca-9,12,15-trienoic acid","C18:3(Δ9,12,15)"
+18,C18H32O2,280.24023,Linoleic Acid,"(9Z,12Z)-octadeca-9,12-dienoic acid",C18:2
+19,C18H34O2,282.25588,Oleic Acid,(Z)-octadec-9-enoic acid,C18:1
+20,C18H34O2,282.25588,Elaidic Acid,(E)-octadec-9-enoic acid,C18:1(Trans)
+21,C18H36O2,284.27153,Stearic acid,octadecanoic acid,C18:0
+22,C20H32O2,304.24023,Arachidonic acid,"(5Z,8Z,11Z,14Z)-icosa-5,8,11,14-tetraenoic acid",C20:4
+23,C20H34O2,306.25588,Dihomo-gamma-linolenic acid,"(8Z,11Z,14Z)-icosa-8,11,14-trienoic acid","C20:3 (Δ8,11,14)"
+24,C20H34O2,306.25588,Eicosatrienoic acid,"(11Z,14Z,17Z)-icosa-11,14,17-trienoic acid","C20:3 (Δ11,14,17)"
+25,C20H36O2,308.27153,Eicosadienoic acid,"(11Z,14Z)-icosa-11,14-dienoic acid","C20:2 (Δ11, 14)"
+26,C20H38O2,310.28718,gondoic acid,(Z)-icos-11-enoic acid,C20:1 (Δ11)
+27,C20H40O2,312.302831,Arachidic acid,icosanoic acid,C20:0
+28,C22H32O2,328.24023,Docosahexaenoic Acid,"(4Z,7Z,10Z,13Z,16Z,19Z)-docosa-4,7,10,13,16,19-hexaenoic acid",C22:6
+29,C22H36O2,332.2715,adrenic acid,"(7Z,10Z,13Z,16Z)-docosa-7,10,13,16-tetraenoic acid","C22:4 (Δ7, 10, 13,16)"
+30,C22H38O2,334.2872,Erucic Acid,(Z)-docos-13-enoic acid,C22:1
+31,C22H40O2,336.302831,Docosadienoic Acid,"(13Z,16Z)-docosa-13,16-dienoic acid",C22:2
+32,C22H42O2,338.3185,Docosatrienoic Acid,"(13E,16E,19E)-docosa-13,16,19-trienoic acid","C22:3 (Δ13,16, 19)"
+33,C22H44O2,340.334131,Behenic acid,docosanoic acid,C22:0
+34,C24H46O2,366.349781,Nervonic acid,(Z)-tetracos-15-enoic acid,C24:1
+35,C24H48O2,368.3654,Lignoceric acid,tetracosanoic acid,C24:0
