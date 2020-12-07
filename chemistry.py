@@ -17,25 +17,26 @@ db = client.test
 h2o = 18.0153
 glycerol = 92.0938
 
-# read the user input
-userInput = read_user_input("0", "", "")
-totalMass = userInput[1]
-ion = userInput[2].split()
-ionName = ion[0]
-ionMass = get_ion_mass(ion[1][1:-1])
+While True:
+    # read the user input
+    userInput = read_user_input("0", "", "")
+    totalMass = userInput[1]
+    ion = userInput[2].split()
+    ionName = ion[0]
+    ionMass = get_ion_mass(ion[1][1:-1])
 
-print("Calculating combinations for: \n" 
-            + "Total Mass: " + str(totalMass) + "\n"
-            + "ion: " + ionName + "(" + str(ionMass) + ")\n")
+    print("Calculating combinations for: \n" 
+                + "Total Mass: " + str(totalMass) + "\n"
+                + "ion: " + ionName + "(" + str(ionMass) + ")\n")
 
-# Get list of fatty acids from database 
-cursor = db.acid.find({})
-acidList = []
-for document in cursor:
-    acidList.append(document)
+    # Get list of fatty acids from database 
+    cursor = db.acid.find({})
+    acidList = []
+    for document in cursor:
+        acidList.append(document)
 
-# Calculate all possible combinations 
-# M (FA1+FA2+FA3) = M (TAG) - M (glycerol) + 3 H2O - M (ion)
-targetMass = totalMass - glycerol + h2o*3 - float(ionMass)
-print('(DEBUG) targetMass is: ' + str(round(targetMass,4)))
-get_all_combination(acidList, targetMass)
+    # Calculate all possible combinations 
+    # M (FA1+FA2+FA3) = M (TAG) - M (glycerol) + 3 H2O - M (ion)
+    targetMass = totalMass - glycerol + h2o*3 - float(ionMass)
+    print('(DEBUG) targetMass is: ' + str(round(targetMass,4)))
+    get_all_combination(acidList, targetMass)
