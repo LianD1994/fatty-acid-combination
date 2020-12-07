@@ -4,7 +4,7 @@ block_cipher = None
 
 
 a = Analysis(['chemistry.py'],
-             pathex=['/Users/lian/code/fatty-acid-combination'],
+             pathex=['/Users/liangyad/ws/fatty-acid-combination'],
              binaries=[],
              datas=[],
              hiddenimports=[],

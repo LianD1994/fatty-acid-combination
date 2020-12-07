@@ -17,7 +17,7 @@ db = client.test
 h2o = 18.0153
 glycerol = 92.0938
 
-While True:
+while True:
     # read the user input
     userInput = read_user_input("0", "", "")
     totalMass = userInput[1]
