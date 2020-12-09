@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>modulegraph cross reference for chemistry.py, pyi_rth_multiprocessing.py, pyi_rth_pkgres.py</title>
+    <title>modulegraph cross reference for chemistry.py, pyi_rth_certifi.py, pyi_rth_multiprocessing.py, pyi_rth_pkgres.py</title>
     <style>
       .node { padding: 0.5em 0 0.5em; border-top: thin grey dotted; }
       .moduletype { font: smaller italic }
@@ -11,7 +11,7 @@
     </style>
   </head>
   <body>
-    <h1>modulegraph cross reference for chemistry.py, pyi_rth_multiprocessing.py, pyi_rth_pkgres.py</h1>
+    <h1>modulegraph cross reference for chemistry.py, pyi_rth_certifi.py, pyi_rth_multiprocessing.py, pyi_rth_pkgres.py</h1>
 
 <div class="node">
   <a name="chemistry.py"></a>
@@ -158,6 +158,7 @@ imports:
  &#8226;   <a href="#locale">locale</a>
  &#8226;   <a href="#operator">operator</a>
  &#8226;   <a href="#pprint">pprint</a>
+ &#8226;   <a href="#pyi_rth_certifi.py">pyi_rth_certifi.py</a>
  &#8226;   <a href="#pyi_rth_multiprocessing.py">pyi_rth_multiprocessing.py</a>
  &#8226;   <a href="#pyi_rth_pkgres.py">pyi_rth_pkgres.py</a>
  &#8226;   <a href="#pymongo">pymongo</a>
@@ -171,6 +172,24 @@ imports:
  &#8226;   <a href="#types">types</a>
  &#8226;   <a href="#warnings">warnings</a>
  &#8226;   <a href="#weakref">weakref</a>
+
+  </div>
+
+</div>
+
+<div class="node">
+  <a name="pyi_rth_certifi.py"></a>
+  <a target="code" href="/usr/local/lib/python3.9/site-packages/_pyinstaller_hooks_contrib/hooks/rthooks/pyi_rth_certifi.py" type="text/plain"><tt>pyi_rth_certifi.py</tt></a>
+<span class="moduletype">Script</span>  <div class="import">
+imports:
+    <a href="#os">os</a>
+ &#8226;   <a href="#ssl">ssl</a>
+ &#8226;   <a href="#sys">sys</a>
+
+  </div>
+  <div class="import">
+imported by:
+    <a href="#chemistry.py">chemistry.py</a>
 
   </div>
 
@@ -866,6 +885,17 @@ imported by:
 <span class="moduletype">MissingModule</span>  <div class="import">
 imported by:
     <a href="#pandas.io.sql">pandas.io.sql</a>
+
+  </div>
+
+</div>
+
+<div class="node">
+  <a name="'typing.io'"></a>
+  <a target="code" href="" type="text/plain"><tt>'typing.io'</tt></a>
+<span class="moduletype">MissingModule</span>  <div class="import">
+imported by:
+    <a href="#importlib.resources">importlib.resources</a>
 
   </div>
 
@@ -4145,10 +4175,34 @@ imported by:
 
 <div class="node">
   <a name="certifi"></a>
-  <a target="code" href="" type="text/plain"><tt>certifi</tt></a>
-<span class="moduletype">MissingModule</span>  <div class="import">
+  <a target="code" href="/usr/local/lib/python3.9/site-packages/certifi/__init__.py" type="text/plain"><tt>certifi</tt></a>
+<span class="moduletype">Package</span>  <div class="import">
+imports:
+    <a href="#certifi.core">certifi.core</a>
+
+  </div>
+  <div class="import">
 imported by:
-    <a href="#pymongo.ssl_support">pymongo.ssl_support</a>
+    <a href="#certifi.core">certifi.core</a>
+ &#8226;   <a href="#pymongo.ssl_support">pymongo.ssl_support</a>
+
+  </div>
+
+</div>
+
+<div class="node">
+  <a name="certifi.core"></a>
+  <a target="code" href="/usr/local/lib/python3.9/site-packages/certifi/core.py" type="text/plain"><tt>certifi.core</tt></a>
+<span class="moduletype">SourceModule</span>  <div class="import">
+imports:
+    <a href="#certifi">certifi</a>
+ &#8226;   <a href="#importlib.resources">importlib.resources</a>
+ &#8226;   <a href="#os">os</a>
+
+  </div>
+  <div class="import">
+imported by:
+    <a href="#certifi">certifi</a>
 
   </div>
 
@@ -4851,7 +4905,9 @@ imported by:
  &#8226;   <a href="#dns.wire">dns.wire</a>
  &#8226;   <a href="#getpass">getpass</a>
  &#8226;   <a href="#http.server">http.server</a>
+ &#8226;   <a href="#importlib._common">importlib._common</a>
  &#8226;   <a href="#importlib.metadata">importlib.metadata</a>
+ &#8226;   <a href="#importlib.resources">importlib.resources</a>
  &#8226;   <a href="#importlib.util">importlib.util</a>
  &#8226;   <a href="#numpy.core._ufunc_config">numpy.core._ufunc_config</a>
  &#8226;   <a href="#numpy.core.arrayprint">numpy.core.arrayprint</a>
@@ -12543,6 +12599,7 @@ imported by:
  &#8226;   <a href="#email.charset">email.charset</a>
  &#8226;   <a href="#fnmatch">fnmatch</a>
  &#8226;   <a href="#http.server">http.server</a>
+ &#8226;   <a href="#importlib._common">importlib._common</a>
  &#8226;   <a href="#importlib.metadata">importlib.metadata</a>
  &#8226;   <a href="#importlib.util">importlib.util</a>
  &#8226;   <a href="#inspect">inspect</a>
@@ -13132,6 +13189,7 @@ imports:
  &#8226;   <a href="#importlib">importlib</a>
  &#8226;   <a href="#importlib._bootstrap">importlib._bootstrap</a>
  &#8226;   <a href="#importlib._bootstrap_external">importlib._bootstrap_external</a>
+ &#8226;   <a href="#importlib._common">importlib._common</a>
  &#8226;   <a href="#importlib.machinery">importlib.machinery</a>
  &#8226;   <a href="#sys">sys</a>
  &#8226;   <a href="#types">types</a>
@@ -13146,9 +13204,11 @@ imported by:
  &#8226;   <a href="#importlib">importlib</a>
  &#8226;   <a href="#importlib._bootstrap">importlib._bootstrap</a>
  &#8226;   <a href="#importlib._bootstrap_external">importlib._bootstrap_external</a>
+ &#8226;   <a href="#importlib._common">importlib._common</a>
  &#8226;   <a href="#importlib.abc">importlib.abc</a>
  &#8226;   <a href="#importlib.machinery">importlib.machinery</a>
  &#8226;   <a href="#importlib.metadata">importlib.metadata</a>
+ &#8226;   <a href="#importlib.resources">importlib.resources</a>
  &#8226;   <a href="#importlib.util">importlib.util</a>
  &#8226;   <a href="#inspect">inspect</a>
  &#8226;   <a href="#pandas.compat._optional">pandas.compat._optional</a>
@@ -13210,6 +13270,29 @@ imported by:
 </div>
 
 <div class="node">
+  <a name="importlib._common"></a>
+  <a target="code" href="/usr/local/Cellar/python%403.9/3.9.0_4/Frameworks/Python.framework/Versions/3.9/lib/python3.9/importlib/_common.py" type="text/plain"><tt>importlib._common</tt></a>
+<span class="moduletype">SourceModule</span>  <div class="import">
+imports:
+    <a href="#contextlib">contextlib</a>
+ &#8226;   <a href="#functools">functools</a>
+ &#8226;   <a href="#importlib">importlib</a>
+ &#8226;   <a href="#os">os</a>
+ &#8226;   <a href="#pathlib">pathlib</a>
+ &#8226;   <a href="#tempfile">tempfile</a>
+ &#8226;   <a href="#zipfile">zipfile</a>
+
+  </div>
+  <div class="import">
+imported by:
+    <a href="#importlib">importlib</a>
+ &#8226;   <a href="#importlib.resources">importlib.resources</a>
+
+  </div>
+
+</div>
+
+<div class="node">
   <a name="importlib.abc"></a>
   <a target="code" href="/usr/local/Cellar/python%403.9/3.9.0_4/Frameworks/Python.framework/Versions/3.9/lib/python3.9/importlib/abc.py" type="text/plain"><tt>importlib.abc</tt></a>
 <span class="moduletype">SourceModule</span>  <div class="import">
@@ -13229,6 +13312,7 @@ imports:
 imported by:
     <a href="#_distutils_hack">_distutils_hack</a>
  &#8226;   <a href="#importlib.metadata">importlib.metadata</a>
+ &#8226;   <a href="#importlib.resources">importlib.resources</a>
  &#8226;   <a href="#importlib.util">importlib.util</a>
  &#8226;   <a href="#zipimport">zipimport</a>
 
@@ -13297,6 +13381,31 @@ imports:
   <div class="import">
 imported by:
     <a href="#importlib._bootstrap_external">importlib._bootstrap_external</a>
+
+  </div>
+
+</div>
+
+<div class="node">
+  <a name="importlib.resources"></a>
+  <a target="code" href="/usr/local/Cellar/python%403.9/3.9.0_4/Frameworks/Python.framework/Versions/3.9/lib/python3.9/importlib/resources.py" type="text/plain"><tt>importlib.resources</tt></a>
+<span class="moduletype">SourceModule</span>  <div class="import">
+imports:
+    <a href="#'typing.io'">'typing.io'</a>
+ &#8226;   <a href="#contextlib">contextlib</a>
+ &#8226;   <a href="#importlib">importlib</a>
+ &#8226;   <a href="#importlib._common">importlib._common</a>
+ &#8226;   <a href="#importlib.abc">importlib.abc</a>
+ &#8226;   <a href="#io">io</a>
+ &#8226;   <a href="#os">os</a>
+ &#8226;   <a href="#pathlib">pathlib</a>
+ &#8226;   <a href="#types">types</a>
+ &#8226;   <a href="#typing">typing</a>
+
+  </div>
+  <div class="import">
+imported by:
+    <a href="#certifi.core">certifi.core</a>
 
   </div>
 
@@ -13446,6 +13555,7 @@ imported by:
  &#8226;   <a href="#http.cookiejar">http.cookiejar</a>
  &#8226;   <a href="#http.server">http.server</a>
  &#8226;   <a href="#importlib.metadata">importlib.metadata</a>
+ &#8226;   <a href="#importlib.resources">importlib.resources</a>
  &#8226;   <a href="#lib2to3.patcomp">lib2to3.patcomp</a>
  &#8226;   <a href="#lib2to3.pgen2.driver">lib2to3.pgen2.driver</a>
  &#8226;   <a href="#lib2to3.pytree">lib2to3.pytree</a>
@@ -19945,6 +20055,7 @@ imported by:
  &#8226;   <a href="#bdb">bdb</a>
  &#8226;   <a href="#bson.objectid">bson.objectid</a>
  &#8226;   <a href="#bz2">bz2</a>
+ &#8226;   <a href="#certifi.core">certifi.core</a>
  &#8226;   <a href="#cgi">cgi</a>
  &#8226;   <a href="#concurrent.futures.process">concurrent.futures.process</a>
  &#8226;   <a href="#concurrent.futures.thread">concurrent.futures.thread</a>
@@ -20002,7 +20113,9 @@ imported by:
  &#8226;   <a href="#http.cookiejar">http.cookiejar</a>
  &#8226;   <a href="#http.server">http.server</a>
  &#8226;   <a href="#imp">imp</a>
+ &#8226;   <a href="#importlib._common">importlib._common</a>
  &#8226;   <a href="#importlib.metadata">importlib.metadata</a>
+ &#8226;   <a href="#importlib.resources">importlib.resources</a>
  &#8226;   <a href="#inspect">inspect</a>
  &#8226;   <a href="#lib2to3.pgen2.driver">lib2to3.pgen2.driver</a>
  &#8226;   <a href="#lib2to3.pygram">lib2to3.pygram</a>
@@ -20100,6 +20213,7 @@ imported by:
  &#8226;   <a href="#posixpath">posixpath</a>
  &#8226;   <a href="#py_compile">py_compile</a>
  &#8226;   <a href="#pydoc">pydoc</a>
+ &#8226;   <a href="#pyi_rth_certifi.py">pyi_rth_certifi.py</a>
  &#8226;   <a href="#pyi_rth_multiprocessing.py">pyi_rth_multiprocessing.py</a>
  &#8226;   <a href="#pymongo.auth">pymongo.auth</a>
  &#8226;   <a href="#pymongo.daemon">pymongo.daemon</a>
@@ -29231,7 +29345,9 @@ imports:
   </div>
   <div class="import">
 imported by:
-    <a href="#importlib.metadata">importlib.metadata</a>
+    <a href="#importlib._common">importlib._common</a>
+ &#8226;   <a href="#importlib.metadata">importlib.metadata</a>
+ &#8226;   <a href="#importlib.resources">importlib.resources</a>
  &#8226;   <a href="#numpy.compat.py3k">numpy.compat.py3k</a>
  &#8226;   <a href="#pandas._typing">pandas._typing</a>
  &#8226;   <a href="#pandas.io.common">pandas.io.common</a>
@@ -34296,6 +34412,7 @@ imported by:
  &#8226;   <a href="#dns.query">dns.query</a>
  &#8226;   <a href="#ftplib">ftplib</a>
  &#8226;   <a href="#http.client">http.client</a>
+ &#8226;   <a href="#pyi_rth_certifi.py">pyi_rth_certifi.py</a>
  &#8226;   <a href="#pymongo.errors">pymongo.errors</a>
  &#8226;   <a href="#pymongo.pyopenssl_context">pymongo.pyopenssl_context</a>
  &#8226;   <a href="#pymongo.ssl_context">pymongo.ssl_context</a>
@@ -34779,6 +34896,7 @@ imported by:
  &#8226;   <a href="#pprint">pprint</a>
  &#8226;   <a href="#py_compile">py_compile</a>
  &#8226;   <a href="#pydoc">pydoc</a>
+ &#8226;   <a href="#pyi_rth_certifi.py">pyi_rth_certifi.py</a>
  &#8226;   <a href="#pyi_rth_multiprocessing.py">pyi_rth_multiprocessing.py</a>
  &#8226;   <a href="#pymongo.daemon">pymongo.daemon</a>
  &#8226;   <a href="#pymongo.errors">pymongo.errors</a>
@@ -35006,6 +35124,7 @@ imported by:
  &#8226;   <a href="#ctypes.util">ctypes.util</a>
  &#8226;   <a href="#distutils.ccompiler">distutils.ccompiler</a>
  &#8226;   <a href="#distutils.util">distutils.util</a>
+ &#8226;   <a href="#importlib._common">importlib._common</a>
  &#8226;   <a href="#multiprocessing.connection">multiprocessing.connection</a>
  &#8226;   <a href="#multiprocessing.heap">multiprocessing.heap</a>
  &#8226;   <a href="#multiprocessing.synchronize">multiprocessing.synchronize</a>
@@ -35422,6 +35541,7 @@ imported by:
  &#8226;   <a href="#functools">functools</a>
  &#8226;   <a href="#imp">imp</a>
  &#8226;   <a href="#importlib">importlib</a>
+ &#8226;   <a href="#importlib.resources">importlib.resources</a>
  &#8226;   <a href="#importlib.util">importlib.util</a>
  &#8226;   <a href="#inspect">inspect</a>
  &#8226;   <a href="#multiprocessing.managers">multiprocessing.managers</a>
@@ -35486,6 +35606,7 @@ imported by:
     <a href="#asyncio.staggered">asyncio.staggered</a>
  &#8226;   <a href="#functools">functools</a>
  &#8226;   <a href="#importlib.abc">importlib.abc</a>
+ &#8226;   <a href="#importlib.resources">importlib.resources</a>
  &#8226;   <a href="#pandas._config.config">pandas._config.config</a>
  &#8226;   <a href="#pandas._testing">pandas._testing</a>
  &#8226;   <a href="#pandas._typing">pandas._typing</a>
@@ -37082,6 +37203,7 @@ imports:
   <div class="import">
 imported by:
     <a href="#distutils.archive_util">distutils.archive_util</a>
+ &#8226;   <a href="#importlib._common">importlib._common</a>
  &#8226;   <a href="#importlib.metadata">importlib.metadata</a>
  &#8226;   <a href="#numpy.lib.npyio">numpy.lib.npyio</a>
  &#8226;   <a href="#pandas._testing">pandas._testing</a>
