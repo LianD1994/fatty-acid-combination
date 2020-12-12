@@ -27,7 +27,6 @@ def read_user_input(confirm, totalMass, ion, tolerance):
         # get the totalMass from user
         while not totalMass or float(totalMass) < 0:
             totalMass = float(input("\nPlease enter total mass of your acids: "))
-        print(totalMass)
 
         # reset ionsNum value
         ionsNum = "-1"
@@ -88,7 +87,6 @@ def read_user_input(confirm, totalMass, ion, tolerance):
             tolerance = 0.001
         if tolerance_choice == 8:
             tolerance = 0.0005
-        print(tolerance)
 
         # reset confirm value
         confirm = "0"
@@ -126,7 +124,7 @@ def get_all_combination(acidList, totalMass, tolerance):
             thirdAcidMass = float(thirdAcid['Neutral Mass'])
 
             tempTotalMass = float(firstAcidMass + secondAcidMass + thirdAcidMass)
-            print(abs(tempTotalMass - totalMass))
+            
             if abs(tempTotalMass - totalMass) <= tolerance:
                 result.append([firstAcid, secondAcid, thirdAcid])
                 if startIndex == endIndex-1 and secondAcidMass == thirdAcidMass:
