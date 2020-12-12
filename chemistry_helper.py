@@ -19,14 +19,16 @@ db = client.test
 
 # read the user input
 # ---------------------------------------------
-def read_user_input(confirm, totalMass, ion):
+def read_user_input(confirm, totalMass, ion, tolerance):
     while not confirm or int(confirm) != 1:
+
         # reset totalMass
         totalMass = ""
         # get the totalMass from user
         while not totalMass or float(totalMass) < 0:
             totalMass = float(input("\nPlease enter total mass of your acids: "))
         print(totalMass)
+
         # reset ionsNum value
         ionsNum = "-1"
         # check for valid selection
@@ -55,24 +57,57 @@ def read_user_input(confirm, totalMass, ion):
             ion = "Lithium (Li+)"
         elif ionsNum == 6:
             ion = "Potassium (K+)"
-        
+
+        # reset tolerance 
+        tolerance_choice = "-1"
+        # 0.5  0.2  0.1  0.05  0.01  0.005  0.001  0.0005
+        while not tolerance_choice or int(tolerance_choice) < 1 or int(tolerance_choice) > 8:
+            tolerance_choice = input("\nPlease choose the mass tolerance for your result from the following list: \n"
+                        + "1. +/- 0.5\n"
+                        + "2. +/- 0.2\n"
+                        + "3. +/- 0.1\n"
+                        + "4. +/- 0.05\n"
+                        + "5. +/- 0.01\n"
+                        + "6. +/- 0.005\n"
+                        + "7. +/- 0.001\n"
+                        + "8. +/- 0.0005\n\n")
+        tolerance_choice = int(tolerance_choice)
+        if tolerance_choice == 1:
+            tolerance = 0.5
+        if tolerance_choice == 2:
+            tolerance = 0.2
+        if tolerance_choice == 3:
+            tolerance = 0.1
+        if tolerance_choice == 4:
+            tolerance = 0.05
+        if tolerance_choice == 5:
+            tolerance = 0.01
+        if tolerance_choice == 6:
+            tolerance = 0.005
+        if tolerance_choice == 7:
+            tolerance = 0.001
+        if tolerance_choice == 8:
+            tolerance = 0.0005
+        print(tolerance)
+
         # reset confirm value
         confirm = "0"
         # ask user confirmation
         while not confirm or int(confirm) < 1 or int(confirm) > 2:
             confirm = input("\nDo you want to get all fatty acid combination for a Total Mass of: " + str(totalMass) 
-                        + " with ion: " + ion + "? \n"
+                        + " with ion: " + ion 
+                        + " ,with mass tolerance within +/- " + str(tolerance) + "? \n"
                         + "1. YES \n"
                         + "2. NO \n\n")
 
-    return [confirm, totalMass, ion]
+    return [confirm, totalMass, ion, tolerance]
 
 
 # Given a list & a totalMass, 
 # get all triplet in the list that adds up to that totalMass
 # ****todo need to handle the case if multiple acids have same mass****
 # -------------------------------------------------
-def get_all_combination(acidList, totalMass):
+def get_all_combination(acidList, totalMass, tolerance):
     result = []
     # sort the dictionary by value
     acidList.sort(key = lambda x: float(x['Neutral Mass']))
@@ -91,15 +126,15 @@ def get_all_combination(acidList, totalMass):
             thirdAcidMass = float(thirdAcid['Neutral Mass'])
 
             tempTotalMass = float(firstAcidMass + secondAcidMass + thirdAcidMass)
-            
-            if round(tempTotalMass, 4) == round(totalMass, 4):
+            print(abs(tempTotalMass - totalMass))
+            if abs(tempTotalMass - totalMass) <= tolerance:
                 result.append([firstAcid, secondAcid, thirdAcid])
                 if startIndex == endIndex-1 and secondAcidMass == thirdAcidMass:
                     result.append([firstAcid, secondAcid, secondAcid])
                     result.append([firstAcid, thirdAcid, thirdAcid])
                     break
                 else: # check if the acid mass at next index is the same as the current one
-                    if secondAcidMass == float(acidList[startIndex+1]['Neutral Mass']):
+                    if startIndex < endIndex and secondAcidMass == float(acidList[startIndex+1]['Neutral Mass']):
                         startIndex += 1
                     else:
                         endIndex -= 1
