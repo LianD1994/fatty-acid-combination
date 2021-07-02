@@ -40,4 +40,4 @@ while True:
     # M (FA1+FA2+FA3) = M (TAG) - M (glycerol) + 3 H2O - M (ion)
     targetMass = totalMass - glycerol + h2o*3 - float(ionMass)
     print('(DEBUG) targetMass is: ' + str(round(targetMass,4)))
-    get_all_combination(acidList, targetMass, tolerance)
+    get_all_combination(acidList, targetMass, tolerance, ionMass)

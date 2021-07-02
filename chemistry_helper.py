@@ -10,6 +10,10 @@ from pymongo import MongoClient
 # pprint library is used to make the output look more pretty
 from pprint import pprint
 
+# Define constants
+h2o = 18.010565
+glycerol = 92.047344
+
 # database setting
 password = "chemistry"
 dbname = "Cluster0"
@@ -94,18 +98,18 @@ def read_user_input(confirm, totalMass, ion, tolerance):
         while not confirm or int(confirm) < 1 or int(confirm) > 2:
             confirm = input("\nDo you want to get all fatty acid combination for a Total Mass of: " + str(totalMass) 
                         + " with ion: " + ion 
-                        + " ,with mass tolerance within +/- " + str(tolerance) + "? \n"
+                        + ", with mass tolerance within +/- " + str(tolerance) + "? \n"
                         + "1. YES \n"
                         + "2. NO \n\n")
 
     return [confirm, totalMass, ion, tolerance]
 
 
-# Given a list & a totalMass, 
-# get all triplet in the list that adds up to that totalMass
+# Given a list & a targetMass, 
+# get all triplet in the list that adds up to that targetMass
 # ****todo need to handle the case if multiple acids have same mass****
 # -------------------------------------------------
-def get_all_combination(acidList, totalMass, tolerance):
+def get_all_combination(acidList, targetMass, tolerance, ionMass):
     result = []
     # sort the dictionary by value
     acidList.sort(key = lambda x: float(x['Neutral Mass']))
@@ -123,20 +127,21 @@ def get_all_combination(acidList, totalMass, tolerance):
             thirdAcid = acidList[endIndex]
             thirdAcidMass = float(thirdAcid['Neutral Mass'])
 
-            tempTotalMass = float(firstAcidMass + secondAcidMass + thirdAcidMass)
+            tempTargetMass = float(firstAcidMass + secondAcidMass + thirdAcidMass)
             
-            if abs(tempTotalMass - totalMass) <= tolerance:
-                result.append([firstAcid, secondAcid, thirdAcid])
+            if abs(tempTargetMass - targetMass) <= tolerance:
+                standardMass = tempTargetMass + float(ionMass) + glycerol - h2o*3
+                result.append([firstAcid, secondAcid, thirdAcid, standardMass])
                 if startIndex == endIndex-1 and secondAcidMass == thirdAcidMass:
-                    result.append([firstAcid, secondAcid, secondAcid])
-                    result.append([firstAcid, thirdAcid, thirdAcid])
+                    result.append([firstAcid, secondAcid, secondAcid, standardMass])
+                    result.append([firstAcid, thirdAcid, thirdAcid, standardMass])
                     break
                 else: # check if the acid mass at next index is the same as the current one
                     if startIndex < endIndex and secondAcidMass == float(acidList[startIndex+1]['Neutral Mass']):
                         startIndex += 1
                     else:
                         endIndex -= 1
-            elif tempTotalMass < totalMass:
+            elif tempTargetMass < targetMass:
                 startIndex += 1
             else:
                 endIndex -= 1
@@ -147,15 +152,20 @@ def get_all_combination(acidList, totalMass, tolerance):
         print("Found combination!")
         count = 1
         for item in result:
-            table = BeautifulTable()
+            table = BeautifulTable(maxwidth=140)
             table.column_headers = ["Compound", "Formula", "Neutral Mass", "Common Name", "IUPAC Name", "Description"]
+
             firstAcid = item[0]
             secondAcid = item[1]
             thirdAcid = item[2]
+            standardMass = item[3]
+
             table.append_row([firstAcid["Compound"], firstAcid["Formula"], firstAcid["Neutral Mass"], firstAcid["Common Name"], firstAcid["IUPAC Name"], firstAcid["Description"]])
             table.append_row([secondAcid["Compound"], secondAcid["Formula"], secondAcid["Neutral Mass"], secondAcid["Common Name"], secondAcid["IUPAC Name"], secondAcid["Description"]])
             table.append_row([thirdAcid["Compound"], thirdAcid["Formula"], thirdAcid["Neutral Mass"], thirdAcid["Common Name"], thirdAcid["IUPAC Name"], thirdAcid["Description"]])
             print(str(count) + '.')
+            # debug
+            print('Standard Mass - ' + str(standardMass))
             count += 1
             print(table)
     # return result #todo
