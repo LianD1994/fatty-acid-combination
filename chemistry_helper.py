@@ -23,24 +23,8 @@ db = client.test
 
 # read the user input
 # ---------------------------------------------
-def read_user_input(confirm, glycerolipids, totalMass, ion, tolerance):
+def read_user_input(confirm, totalMass, ion, tolerance):
     while not confirm or int(confirm) != 1:
-        # reset Glycerolipids
-        glycerolipidsNum = "-1"
-        while not glycerolipidsNum or int(glycerolipidsNum) < 1 or int(glycerolipidsNum) > 3:
-            glycerolipidsNum = input("\nPlease choose a Glycerolipids from the following list: \n"
-                    + "1. Monoacylglycerol (MAG) \n"
-                    + "2. Diacylglycerol (DAG) \n"
-                    + "3. Triacylglycerol (TAG) \n\n")
-        # get the glycerolipid choice
-        glycerolipidsNum = int(glycerolipidsNum)
-        if glycerolipidsNum == 1:
-            glycerolipids = "MAG"
-        elif glycerolipidsNum == 2:
-            glycerolipids = "DAG"
-        elif glycerolipidsNum == 3:
-            glycerolipids = "TAG"
-    
         # reset totalMass
         totalMass = ""
         # get the totalMass from user
@@ -111,61 +95,82 @@ def read_user_input(confirm, glycerolipids, totalMass, ion, tolerance):
         confirm = "0"
         # ask user confirmation
         while not confirm or int(confirm) < 1 or int(confirm) > 2:
-            confirm = input("\nDo you want to get all fatty acid combinations for " + glycerolipids + " for a Total Mass of: " + str(totalMass) 
+            confirm = input("\nDo you want to get all fatty acid combinations for a Total Mass of: " + str(totalMass) 
                         + " with ion: " + ion 
                         + " and a mass tolerance of +/- " + str(tolerance) + "? \n"
                         + "1. YES \n"
                         + "2. NO \n\n")
 
-    return [confirm, glycerolipids, totalMass, ion, tolerance]
+    return [confirm, totalMass, ion, tolerance]
 
-
-# Given a list & a targetMass, 
-# get all triplet in the list that adds up to that targetMass
-# ****todo need to handle the case if multiple acids have same mass****
-# -------------------------------------------------
-def get_all_combination(acidList, targetMass, tolerance, ionMass, numOfAcid):
-    if numOfAcid == 3:
-        result = find_three_acid_combination(acidList, targetMass, tolerance, ionMass)
-    elif numOfAcid == 2:
-        result = find_two_acid_combination(acidList, targetMass, tolerance, ionMass)
-    elif numOfAcid == 1:
-        result = find_one_acid(acidList, targetMass, tolerance, ionMass)
-    
+def print_result(result):
     if len(result) == 0:
         print("No combination found")
     else:
         print("Found combination!")
         count = 1
         for item in result:
+            glycerolipids = ""
             table = BeautifulTable(maxwidth=140, numeric_precision=4)
             table.column_headers = ["Compound", "Formula", "Neutral Mass", "Common Name", "IUPAC Name", "Description"]
             
             firstAcid, secondAcid, thirdAcid = {}, {}, {}
             stardardMass = -1
-            if numOfAcid > 0:
+            if len(item) > 2:
                 firstAcid = item[0]
                 table.append_row([firstAcid["Compound"], firstAcid["Formula"], firstAcid["Neutral Mass"], firstAcid["Common Name"], firstAcid["IUPAC Name"], firstAcid["Description"]])
-            if numOfAcid > 1:
+                glycerolipids = "MAG"
+            if len(item) > 3:
                 secondAcid = item[1]
                 table.append_row([secondAcid["Compound"], secondAcid["Formula"], secondAcid["Neutral Mass"], secondAcid["Common Name"], secondAcid["IUPAC Name"], secondAcid["Description"]])
-            if numOfAcid > 2:
+                glycerolipids = "DAG"
+            if len(item) > 4:
                 thirdAcid = item[2]
                 table.append_row([thirdAcid["Compound"], thirdAcid["Formula"], thirdAcid["Neutral Mass"], thirdAcid["Common Name"], thirdAcid["IUPAC Name"], thirdAcid["Description"]])
+                glycerolipids = "TAG"
 
-            standardMass = item[numOfAcid]
-            percentageError = item[numOfAcid+1]
+            standardMass = item[len(item)-2]
+            percentageError = item[len(item)-1]
 
             print(str(count) + '.')
             # debug
+            print('Glycerolipids - ' + str(glycerolipids))
             print('Standard Mass - ' + str(round(standardMass, 4)))
             print('Percentge Error - ' + str(round(percentageError, 4))) 
             count += 1
             print(table)
-    # return result #todo
+            print('')
 
+def get_all_combination(acidList, totalMass, tolerance, ionMass):
+    result = []
+    targetMassTAG = totalMass - glycerol + h2o*3 - float(ionMass)
+    targetMassMAG = totalMass - glycerol + h2o - float(ionMass)
+    targetMassDAG = totalMass - glycerol + h2o*2 - float(ionMass)
+    
+    result.extend(get_glycerolipids_combination(acidList, targetMassMAG, tolerance, ionMass, 1))
+    result.extend(get_glycerolipids_combination(acidList, targetMassDAG, tolerance, ionMass, 2))
+    result.extend(get_glycerolipids_combination(acidList, targetMassTAG, tolerance, ionMass, 3))
+    
+    print_result(result)
 
-def find_three_acid_combination(acidList, targetMass, tolerance, ionMass):
+# Given a list & a targetMass, 
+# get all triplet in the list that adds up to that targetMass
+# ****todo need to handle the case if multiple acids have same mass****
+# -------------------------------------------------
+def get_glycerolipids_combination(acidList, targetMass, tolerance, ionMass, numOfAcid):
+    print('(DEBUG) targetMass is: ' + str(round(targetMass, 4)))
+    result = []
+    if numOfAcid == 3:
+        result = find_three_acid_combination(acidList, targetMass, tolerance, ionMass)
+    elif numOfAcid == 2:
+        result = find_two_acid_combination(acidList, targetMass, tolerance, ionMass)
+    elif numOfAcid == 1:
+        result = find_one_acid(acidList, targetMass, tolerance, ionMass)
+
+    return result
+    
+
+def find_three_acid_combination(acidList, targetMass, tolerance, ionMass):  
     # testing value: TAG, 835.7749, Hydrogen
     result = []
     # sort the dictionary by value

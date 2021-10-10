@@ -19,16 +19,14 @@ glycerol = 92.047344
 
 while True:
     # read the user input
-    userInput = read_user_input("0", "", "", "", "-1")
-    glycerolipids = userInput[1]
-    totalMass = userInput[2]
-    ion = userInput[3].split()
-    tolerance = userInput[4]
+    userInput = read_user_input("0", "", "", "-1")
+    totalMass = userInput[1]
+    ion = userInput[2].split()
+    tolerance = userInput[3]
     ionName = ion[0]
     ionMass = get_ion_mass(ion[1][1:-1])
 
     print("Calculating combinations for: \n" 
-                + "Glycerolipids: " + glycerolipids + "\n"
                 + "Total Mass: " + str(totalMass) + "\n"
                 + "ion: " + ionName + "(" + str(ionMass) + ")\n"
                 + "tolerance: " + str(tolerance) + "\n")
@@ -40,20 +38,4 @@ while True:
         acidList.append(document)
 
     # Calculate all possible combinations 
-    targetMass = -1
-    numOfAcid = -1
-    if glycerolipids == "TAG":
-        # M (FA1+FA2+FA3) = M (TAG) - M (glycerol) + 3 H2O - M (ion)
-        targetMass = totalMass - glycerol + h2o*3 - float(ionMass)
-        numOfAcid = 3
-    elif glycerolipids == "MAG":
-        # M (FA) = M (MAG) - M (glycero) + H2O - M (ion)
-        targetMass = totalMass - glycerol + h2o - float(ionMass)
-        numOfAcid = 1
-    elif glycerolipids == "DAG":
-        # M (FA1+FA2) = M (DAG) - M (glycero) + 2 H2O - M (ion)
-        targetMass = totalMass - glycerol + h2o*2 - float(ionMass)
-        numOfAcid = 2
-
-    print('(DEBUG) targetMass is: ' + str(round(targetMass, 4)))
-    get_all_combination(acidList, targetMass, tolerance, ionMass, numOfAcid)
+    get_all_combination(acidList, totalMass, tolerance, ionMass)
