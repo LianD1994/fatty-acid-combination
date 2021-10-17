@@ -116,18 +116,23 @@ def print_result(result):
             
             firstAcid, secondAcid, thirdAcid = {}, {}, {}
             stardardMass = -1
-            if len(item) > 2:
-                firstAcid = item[0]
+            glycerolipids = item[0]
+            
+            if glycerolipids == "MAG" or glycerolipids == "FFA (ion ignored)" or glycerolipids == "EE (ion ignored)":
+                firstAcid = item[1]
                 table.append_row([firstAcid["Compound"], firstAcid["Formula"], firstAcid["Neutral Mass"], firstAcid["Common Name"], firstAcid["IUPAC Name"], firstAcid["Description"]])
-                glycerolipids = "MAG"
-            if len(item) > 3:
-                secondAcid = item[1]
+            elif glycerolipids == "DAG":
+                firstAcid = item[1]
+                table.append_row([firstAcid["Compound"], firstAcid["Formula"], firstAcid["Neutral Mass"], firstAcid["Common Name"], firstAcid["IUPAC Name"], firstAcid["Description"]])
+                secondAcid = item[2]
                 table.append_row([secondAcid["Compound"], secondAcid["Formula"], secondAcid["Neutral Mass"], secondAcid["Common Name"], secondAcid["IUPAC Name"], secondAcid["Description"]])
-                glycerolipids = "DAG"
-            if len(item) > 4:
-                thirdAcid = item[2]
+            elif glycerolipids == "TAG":
+                firstAcid = item[1]
+                table.append_row([firstAcid["Compound"], firstAcid["Formula"], firstAcid["Neutral Mass"], firstAcid["Common Name"], firstAcid["IUPAC Name"], firstAcid["Description"]])
+                secondAcid = item[2]
+                table.append_row([secondAcid["Compound"], secondAcid["Formula"], secondAcid["Neutral Mass"], secondAcid["Common Name"], secondAcid["IUPAC Name"], secondAcid["Description"]])
+                thirdAcid = item[3]
                 table.append_row([thirdAcid["Compound"], thirdAcid["Formula"], thirdAcid["Neutral Mass"], thirdAcid["Common Name"], thirdAcid["IUPAC Name"], thirdAcid["Description"]])
-                glycerolipids = "TAG"
 
             standardMass = item[len(item)-2]
             percentageError = item[len(item)-1]
@@ -141,36 +146,62 @@ def print_result(result):
             print(table)
             print('')
 
-def get_all_combination(acidList, totalMass, tolerance, ionMass):
-    result = []
-    targetMassTAG = totalMass - glycerol + h2o*3 - float(ionMass)
-    targetMassMAG = totalMass - glycerol + h2o - float(ionMass)
-    targetMassDAG = totalMass - glycerol + h2o*2 - float(ionMass)
-    
-    result.extend(get_glycerolipids_combination(acidList, targetMassMAG, tolerance, ionMass, 1))
-    result.extend(get_glycerolipids_combination(acidList, targetMassDAG, tolerance, ionMass, 2))
-    result.extend(get_glycerolipids_combination(acidList, targetMassTAG, tolerance, ionMass, 3))
-    
-    print_result(result)
 
 # Given a list & a targetMass, 
 # get all triplet in the list that adds up to that targetMass
 # ****todo need to handle the case if multiple acids have same mass****
 # -------------------------------------------------
-def get_glycerolipids_combination(acidList, targetMass, tolerance, ionMass, numOfAcid):
-    print('(DEBUG) targetMass is: ' + str(round(targetMass, 4)))
+def get_all_combination(acidList, ethyl_ester_list, totalMass, tolerance, ionMass):
     result = []
-    if numOfAcid == 3:
-        result = find_three_acid_combination(acidList, targetMass, tolerance, ionMass)
-    elif numOfAcid == 2:
-        result = find_two_acid_combination(acidList, targetMass, tolerance, ionMass)
-    elif numOfAcid == 1:
-        result = find_one_acid(acidList, targetMass, tolerance, ionMass)
+    targetMassTAG = totalMass - glycerol + h2o*3 - float(ionMass)
+    targetMassMAG = totalMass - glycerol + h2o - float(ionMass)
+    targetMassDAG = totalMass - glycerol + h2o*2 - float(ionMass)
+    
+    result.extend(find_single_acid(acidList, totalMass, tolerance))
+    result.extend(find_single_ethyl_ester(ethyl_ester_list, totalMass, tolerance))
+    result.extend(find_one_acid_combination(acidList, targetMassMAG, tolerance, ionMass))
+    result.extend(find_two_acid_combination(acidList, targetMassDAG, tolerance, ionMass))
+    result.extend(find_three_acid_combination(acidList, targetMassTAG, tolerance, ionMass))
+    
+    print_result(result)
+
+
+def find_single_ethyl_ester(ethyl_ester_list, targetMass, tolerance):
+    result_type = "EE (ion ignored)" 
+    result = []
+    N = len(ethyl_ester_list)
+    for i in range(N):
+        firstAcid = ethyl_ester_list[i]
+        firstAcidMass = float(firstAcid['Neutral Mass'])
+
+        if abs(firstAcidMass - targetMass) <= tolerance:
+            standardMass = firstAcidMass
+            totalMass = targetMass
+            percentageError = (standardMass - totalMass) / standardMass * 1000000
+            result.append([result_type, firstAcid, standardMass, percentageError])
 
     return result
-    
 
-def find_three_acid_combination(acidList, targetMass, tolerance, ionMass):  
+
+def find_single_acid(acidList, targetMass, tolerance):
+    result_type = "FFA (ion ignored)" 
+    result = []
+    N = len(acidList)
+    for i in range(N):
+        firstAcid = acidList[i]
+        firstAcidMass = float(firstAcid['Neutral Mass'])
+
+        if abs(firstAcidMass - targetMass) <= tolerance:
+            standardMass = firstAcidMass
+            totalMass = targetMass
+            percentageError = (standardMass - totalMass) / standardMass * 1000000
+            result.append([result_type, firstAcid, standardMass, percentageError])
+
+    return result
+
+
+def find_three_acid_combination(acidList, targetMass, tolerance, ionMass): 
+    result_type = "TAG" 
     # testing value: TAG, 835.7749, Hydrogen
     result = []
     # sort the dictionary by value
@@ -195,10 +226,10 @@ def find_three_acid_combination(acidList, targetMass, tolerance, ionMass):
                 standardMass = tempTargetMass + float(ionMass) + glycerol - h2o*3
                 totalMass = targetMass + float(ionMass) + glycerol - h2o*3
                 percentageError = (standardMass - totalMass) / standardMass * 1000000
-                result.append([firstAcid, secondAcid, thirdAcid, standardMass, percentageError])
+                result.append([result_type, firstAcid, secondAcid, thirdAcid, standardMass, percentageError])
                 if startIndex == endIndex-1 and secondAcidMass == thirdAcidMass:
-                    result.append([firstAcid, secondAcid, secondAcid, standardMass, percentageError])
-                    result.append([firstAcid, thirdAcid, thirdAcid, standardMass, percentageError])
+                    result.append([result_type, firstAcid, secondAcid, secondAcid, standardMass, percentageError])
+                    result.append([result_type, firstAcid, thirdAcid, thirdAcid, standardMass, percentageError])
                     break
                 else: # check if the acid mass at next index is the same as the current one
                     if startIndex < endIndex and secondAcidMass == float(acidList[startIndex+1]['Neutral Mass']):
@@ -214,6 +245,7 @@ def find_three_acid_combination(acidList, targetMass, tolerance, ionMass):
 
 
 def find_two_acid_combination(acidList, targetMass, tolerance, ionMass):
+    result_type = "DAG"
     # testing value: DAG, 597.5452, Hydrogen
     result = []
     # sort the dictionary by value
@@ -234,10 +266,10 @@ def find_two_acid_combination(acidList, targetMass, tolerance, ionMass):
             standardMass = tempTargetMass + float(ionMass) + glycerol - h2o*2
             totalMass = targetMass + float(ionMass) + glycerol - h2o*2
             percentageError = (standardMass - totalMass) / standardMass * 1000000
-            result.append([firstAcid, secondAcid, standardMass, percentageError])
+            result.append([result_type, firstAcid, secondAcid, standardMass, percentageError])
             if startIndex == endIndex-1 and firstAcidMass == secondAcidMass:
-                result.append([firstAcid, firstAcid, standardMass, percentageError])
-                result.append([secondAcid, secondAcid, standardMass, percentageError])
+                result.append([result_type, firstAcid, firstAcid, standardMass, percentageError])
+                result.append([result_type, secondAcid, secondAcid, standardMass, percentageError])
                 break
             else:
                 if startIndex < endIndex and firstAcidMass == float(acidList[startIndex+1]['Neutral Mass']):
@@ -252,7 +284,8 @@ def find_two_acid_combination(acidList, targetMass, tolerance, ionMass):
     return result
 
 
-def find_one_acid(acidList, targetMass, tolerance, ionMass):
+def find_one_acid_combination(acidList, targetMass, tolerance, ionMass):
+    result_type = "MAG"
     # testing value: MAG, 331.2843, Hydrogen
     result = []
     # sort the dictionary by value
@@ -267,7 +300,7 @@ def find_one_acid(acidList, targetMass, tolerance, ionMass):
             standardMass = firstAcidMass + float(ionMass) + glycerol - h2o
             totalMass = targetMass + float(ionMass) + glycerol - h2o
             percentageError = (standardMass - totalMass) / standardMass * 1000000
-            result.append([firstAcid, standardMass, percentageError])
+            result.append([result_type, firstAcid, standardMass, percentageError])
 
     return result
 
@@ -278,6 +311,8 @@ def import_csv_to_mongodb(file, header, type):
         db.acid.drop()
     elif type == "ion":
         db.ion.drop()
+    elif type == "ethyl_ester":
+        db.ethyl_ester.drop()
 
     reader = csv.DictReader(file)
     for each in reader:
@@ -289,6 +324,8 @@ def import_csv_to_mongodb(file, header, type):
             db.acid.insert(row)
         elif type == "ion":
             db.ion.insert(row)
+        elif type == "ethyl_ester":
+            db.ethyl_ester.insert(row)
 
 
 def get_ion_mass(ionFormula):

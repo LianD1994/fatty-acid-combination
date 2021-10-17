@@ -37,5 +37,11 @@ while True:
     for document in cursor:
         acidList.append(document)
 
+    # Get list of fatty acids from database 
+    cursor = db.ethyl_ester.find({})
+    ethyl_ester_list = []
+    for document in cursor:
+        ethyl_ester_list.append(document)
+
     # Calculate all possible combinations 
-    get_all_combination(acidList, totalMass, tolerance, ionMass)
+    get_all_combination(acidList, ethyl_ester_list, totalMass, tolerance, ionMass)
